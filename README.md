@@ -20,8 +20,8 @@ grunt.loadNpmTasks('grunt-couchapp');
 ## Documentation
 
 You'll want to add some configuration for the plug-in.  This plugin
-provides three tasks, *mkcouchdb* to create new databases, *rmcouchdb*
-to delete all data and drop an existing database, and *couchapp*,
+provides three tasks, `mkcouchdb` to create new databases, `rmcouchdb`
+to delete all data and drop an existing database, and `couchapp`,
 which installs a specified couchapp into the database.
 
     mkcouchdb: {
@@ -70,6 +70,14 @@ possible to write in your configuration file:
 
 Note, however, that if you call 'rmcouchdb' without a sub-argument, in
 keeping with grunt's standards, it will drop *all* of your databases!
+
+## Demo
+
+It is possible to run the entire toolchain (drop, initialize, and
+install) with the grunt.js file by calling `grunt demo`.  As long as
+you have a local couchdb running in admin-party mode, and browse to
+`http://localhost:5984/grunt-couchapp-demo/_design/app/index.html`
+You should get back a happy message.
 
 ## Contributing
 

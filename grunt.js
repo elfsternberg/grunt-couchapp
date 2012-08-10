@@ -58,4 +58,5 @@ module.exports = function(grunt) {
     
     // Default task.
     grunt.registerTask('default', 'lint test');
+    grunt.registerTask('demo', 'rmcouchdb:demo mkcouchdb:demo couchapp:demo');
 };
