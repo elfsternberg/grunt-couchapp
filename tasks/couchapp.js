@@ -11,6 +11,17 @@ path = require('path');
 couchapp = require('couchapp');
 urls = require('url');
 
+var genDB = function(db) {
+  var parts, dbname, auth;
+  parts = urls.parse(db);
+  dbname = parts.pathname.replace(/^\//, '');
+  auth = parts.auth ? (parts.auth + '@') : '';
+  return {
+    name: dbname,
+    url: parts.protocol + '//' + auth + parts.host
+  };
+};
+
 module.exports = function(grunt) {
 
   // ==========================================================================
@@ -30,11 +41,10 @@ module.exports = function(grunt) {
         var done, parts, nano, dbname, _this;
         _this = this;
         done = this.async();
-        parts = urls.parse(this.data.db);
-        dbname = parts.pathname.replace(/^\//, '');
+        db = genDB(this.data.db);
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
-            nano.db.destroy(dbname, function(err) {
+            nano = require('nano')(db.url);
+            nano.db.destroy(db.name, function(err) {
                 if (err) {
                     if (err.status_code && err.status_code === 404) {
                         if (_this.data.options && _this.data.options.okay_if_missing) {
@@ -56,13 +66,14 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask("mkcouchdb", "Delete a Couch Database", function() {
-        var done, parts, nano, dbname, _this;
+        var done, parts, nano, dbname, auth, _this;
         _this = this;
+
         done = this.async();
         parts = urls.parse(this.data.db);
-        dbname = parts.pathname.replace(/^\//, '');
+        db = genDB(this.data.db);
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
+            nano = require('nano')(db.url);
             nano.db.create(dbname, function(err) {
                 if (_this.data.options && _this.data.options.okay_if_exists) {
                     if (err){
