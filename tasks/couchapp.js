@@ -10,6 +10,8 @@ var path, couchapp, nanolib, urls;
 path = require('path');
 couchapp = require('couchapp');
 urls = require('url');
+console.log(__dirname)
+var async = require('async')
 
 module.exports = function(grunt) {
 
@@ -18,12 +20,17 @@ module.exports = function(grunt) {
   // ==========================================================================
 
     grunt.registerMultiTask("couchapp", "Install Couchapp", function() {
-        var appobj, done;
-        done = this.async();
-        appobj = require(path.join(process.cwd(), path.normalize(this.data.app)));
-        return couchapp.createApp(appobj, this.data.db, function(app) {
-            return app.push(done);
-        });
+
+        var task = this
+        var done = this.async()
+        
+        async.each(this.files, function(file, cb) {
+            var pth = path.join(process.cwd(), path.normalize(file.src[0]))
+            var appobj = require(pth)
+            couchapp.createApp(appobj, task.data.db, function(app) {
+                app.push( cb )
+            });
+        }, done)
     });
 
     grunt.registerMultiTask("rmcouchdb", "Delete a Couch Database", function() {
