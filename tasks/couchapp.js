@@ -5,13 +5,12 @@
  * Licensed under the MIT license.
  */
 
-var path, couchapp, nanolib, urls;
+var path, couchapp, nanolib, urls, async;
 
 path = require('path');
 couchapp = require('couchapp');
 urls = require('url');
-console.log(__dirname)
-var async = require('async')
+async = require('async');
 
 module.exports = function(grunt) {
 
@@ -20,17 +19,23 @@ module.exports = function(grunt) {
   // ==========================================================================
 
     grunt.registerMultiTask("couchapp", "Install Couchapp", function() {
-
-        var task = this
-        var done = this.async()
+        var task = this;
+        var done = this.async();
         
         async.each(this.files, function(file, cb) {
-            var pth = path.join(process.cwd(), path.normalize(file.src[0]))
-            var appobj = require(pth)
-            couchapp.createApp(appobj, task.data.db, function(app) {
-                app.push( cb )
-            });
-        }, done)
+            var appobj, apppath
+            apppath = path.join(process.cwd(), path.normalize(file.src[0]))
+            try {
+                appobj = require(apppath)
+                couchapp.createApp(appobj, task.data.db, function(app) {
+                    app.push(cb);
+                });
+            } catch(ex) {
+                grunt.log.error(ex);
+                grunt.log.warn('Could not load couchapp from ' + apppath + '.');
+                cb();
+            }
+        }, done);
     });
 
     grunt.registerMultiTask("rmcouchdb", "Delete a Couch Database", function() {
