@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         db = genDB(this.data.db);
         try {
             nano = require('nano')(db.url);
-            nano.db.create(dbname, function(err) {
+            nano.db.create(db.name, function(err) {
                 if (_this.data.options && _this.data.options.okay_if_exists) {
                     if (err){
                         grunt.log.writeln("Database " + dbname + " exists, skipping");
