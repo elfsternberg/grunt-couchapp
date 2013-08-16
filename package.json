@@ -30,7 +30,7 @@
         "test": "grunt test"
     },
     "dependencies": {
-        "couchapp": "0.9.1",
+        "couchapp": "0.10.1",
         "grunt": "~0.3.12",
         "nano": "3.3.0"
     },
