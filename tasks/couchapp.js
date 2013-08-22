@@ -5,11 +5,12 @@
  * Licensed under the MIT license.
  */
 
-var path, couchapp, nanolib, urls;
+var path, couchapp, nanolib, urls, auth;
 
 path = require('path');
 couchapp = require('couchapp');
 urls = require('url');
+auth = require('../lib/auth');
 
 var genDB = function(db) {
   var parts, dbname, auth;
@@ -65,8 +66,13 @@ module.exports = function(grunt) {
         }
     });
 
+<<<<<<< HEAD
     grunt.registerMultiTask("mkcouchdb", "Delete a Couch Database", function() {
         var done, parts, nano, dbname, auth, _this;
+=======
+    grunt.registerMultiTask("mkcouchdb", "Make a Couch Database", function() {
+        var done, parts, nano, dbname, _this;
+>>>>>>> fixed typo
         _this = this;
 
         done = this.async();
