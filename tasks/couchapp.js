@@ -10,7 +10,6 @@ var path, couchapp, nanolib, urls, auth;
 path = require('path');
 couchapp = require('couchapp');
 urls = require('url');
-auth = require('../lib/auth');
 
 var genDB = function(db) {
   var parts, dbname, auth;
