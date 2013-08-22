@@ -66,13 +66,8 @@ module.exports = function(grunt) {
         }
     });
 
-<<<<<<< HEAD
-    grunt.registerMultiTask("mkcouchdb", "Delete a Couch Database", function() {
-        var done, parts, nano, dbname, auth, _this;
-=======
     grunt.registerMultiTask("mkcouchdb", "Make a Couch Database", function() {
         var done, parts, nano, dbname, _this;
->>>>>>> fixed typo
         _this = this;
 
         done = this.async();
