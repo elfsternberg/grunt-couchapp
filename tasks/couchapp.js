@@ -32,8 +32,9 @@ module.exports = function(grunt) {
         done = this.async();
         parts = urls.parse(this.data.db);
         dbname = parts.pathname.replace(/^\//, '');
+        auth = parts.auth ? parts.auth+'@' : '';
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
+            nano = require('nano')(parts.protocol + '//' + auth + parts.host);
             nano.db.destroy(dbname, function(err) {
                 if (err) {
                     if (err.status_code && err.status_code === 404) {
@@ -61,8 +62,9 @@ module.exports = function(grunt) {
         done = this.async();
         parts = urls.parse(this.data.db);
         dbname = parts.pathname.replace(/^\//, '');
+        auth = parts.auth ? parts.auth+'@' : '';
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
+            nano = require('nano')(parts.protocol + '//' + auth + parts.host);
             nano.db.create(dbname, function(err) {
                 if (_this.data.options && _this.data.options.okay_if_exists) {
                     if (err){
