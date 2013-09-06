@@ -10,9 +10,7 @@ grunt-couchapp`
 
 Then add this line to your project's `grunt.js` gruntfile:
 
-```javascript
-grunt.loadNpmTasks('grunt-couchapp');
-```
+    grunt.loadNpmTasks('grunt-couchapp');
 
 [grunt]: https://github.com/cowboy/grunt
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
@@ -26,7 +24,10 @@ which installs a specified couchapp into the database.
 
     mkcouchdb: {
         demo: {
-            db: 'http://localhost:5984/grunt-couchapp-demo'
+            db: 'http://localhost:5984/grunt-couchapp-demo',
+            options: {
+                okay_if_exists: true
+            }
         }
     },
 
@@ -54,7 +55,8 @@ possible to write in your configuration file:
             db: 'http://localhost:5984/grunt-couchapp-demo',
             app: './demo/app.js',
             options: {
-                okay_if_missing: true
+                okay_if_missing: true,
+                okay_if_exists: true
             }
         }
     }
