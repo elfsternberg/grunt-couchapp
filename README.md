@@ -68,8 +68,7 @@ possible to write in your configuration file:
     });    
 
 
-Note, however, that if you call 'rmcouchdb' without a sub-argument, in
-keeping with grunt's standards, it will drop *all* of your databases!
+Note that if you call `rmcouchdb` without a sub-argument, it will not delete any databases.
 
 ## Demo
 

@@ -34,21 +34,26 @@ module.exports = function(grunt) {
         dbname = parts.pathname.replace(/^\//, '');
         try {
             nano = require('nano')(parts.protocol + '//' + parts.host);
-            nano.db.destroy(dbname, function(err) {
-                if (err) {
-                    if (err.status_code && err.status_code === 404) {
-                        if (_this.data.options && _this.data.options.okay_if_missing) {
-                            grunt.log.writeln("Database " + dbname + " not present... skipping.");
-                            return done(null, null) ;
+            if (dbname) {
+                nano.db.destroy(dbname, function(err) {
+                    if (err) {
+                        if (err.status_code && err.status_code === 404) {
+                            if (_this.data.options && _this.data.options.okay_if_missing) {
+                                grunt.log.writeln("Database " + dbname + " not present... skipping.");
+                                return done(null, null) ;
+                            } else {
+                                grunt.warn("Database " + dbname + " does not exist.");
+                            }
                         } else {
-                            grunt.warn("Database " + dbname + " does not exist.");
+                            grunt.warn(err);
                         }
-                    } else {
-                        grunt.warn(err);
                     }
-                }
-                return done(err, null);
-            });
+                    return done(err, null);
+                });   
+            } else {
+                grunt.log.writeln("No database specified... skipping.");
+                return done(null, null);
+            }
         } catch (e) {
             grunt.warn(e);
             done(e, null);
@@ -62,20 +67,26 @@ module.exports = function(grunt) {
         parts = urls.parse(this.data.db);
         dbname = parts.pathname.replace(/^\//, '');
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
-            nano.db.create(dbname, function(err) {
-                if (_this.data.options && _this.data.options.okay_if_exists) {
-                    if (err){
-                        grunt.log.writeln("Database " + dbname + " exists, skipping");
+            if (dbname) {
+                nano = require('nano')(parts.protocol + '//' + parts.host);
+                nano.db.create(dbname, function(err) {
+                    if (_this.data.options && _this.data.options.okay_if_exists) {
+                        if (err){
+                            grunt.log.writeln("Database " + dbname + " exists, skipping");
+                        }
+                        return done(null, null);
+                    } else {
+                        if (err){
+                            grunt.warn(err);
+                        }
+                        return done(err, null);
                     }
-                    return done(null, null);
-                } else {
-                    if (err){
-                        grunt.warn(err);
-                    }
-                    return done(err, null);
-                }
-            });
+                });   
+            } else {
+                var err_msg = "No database specified... skipping.";
+                grunt.warn(err_msg);
+                return done(new Error(err_msg), null);
+            }
         } catch (e) {
             grunt.warn(e);
             done(e, null);
