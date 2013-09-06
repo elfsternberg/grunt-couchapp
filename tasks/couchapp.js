@@ -83,7 +83,7 @@ module.exports = function(grunt) {
                     }
                 });   
             } else {
-                var err_msg = "No database specified... skipping.";
+                var err_msg = "No database specified to create!";
                 grunt.warn(err_msg);
                 return done(new Error(err_msg), null);
             }
