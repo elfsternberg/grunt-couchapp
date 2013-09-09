@@ -1,43 +1,43 @@
 {
-    "name": "grunt-couchapp",
-    "description": "A grunt plugin for building and uploading couchapps",
-    "version": "0.1.0",
-    "homepage": "https://github.com/elf/grunt-couchapp",
-    "author": {
-        "name": "Ken Elf Mathieu Sternberg",
-        "email": "elf.sternberg@gmail.com",
-        "url": "http://elfsternberg.com"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/elf/grunt-couchapp.git"
-    },
-    "bugs": {
-        "url": "https://github.com/elf/grunt-couchapp/issues"
-    },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/elf/grunt-couchapp/blob/master/LICENSE-MIT"
-        }
-    ],
-    "main": "grunt.js",
-    "bin": "bin/grunt-couchapp",
-    "engines": {
-        "node": "*"
-    },
-    "scripts": {
-        "test": "grunt test"
-    },
-    "dependencies": {
-        "couchapp": "0.10.*",
-        "grunt": "~0.3.12",
-        "nano": "3.3.0"
-    },
-    "devDependencies": {
-        "grunt": "~0.3.12"
-    },
-    "keywords": [
-        "gruntplugin"
-    ]
+  "name": "grunt-couchapp",
+  "description": "A grunt plugin for building and uploading couchapps",
+  "version": "0.1.0",
+  "homepage": "https://github.com/elf/grunt-couchapp",
+  "author": {
+    "name": "Ken Elf Mathieu Sternberg",
+    "email": "elf.sternberg@gmail.com",
+    "url": "http://elfsternberg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/elf/grunt-couchapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/elf/grunt-couchapp/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/elf/grunt-couchapp/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": "bin/grunt-couchapp",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "couchapp": "0.10.*",
+    "grunt": "~0.3.12",
+    "nano": "3.3.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.12"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
 }

@@ -5,12 +5,11 @@
  * Licensed under the MIT license.
  */
 
-var path, couchapp, nanolib, urls, async;
+var path, couchapp, nanolib, urls;
 
 path = require('path');
 couchapp = require('couchapp');
 urls = require('url');
-async = require('async');
 
 var genDB = function(db) {
   var parts, dbname, auth;
@@ -41,23 +40,14 @@ module.exports = function(grunt) {
   // ==========================================================================
 
     grunt.registerMultiTask("couchapp", "Install Couchapp", function() {
-        var task = this;
-        var done = this.async();
-        
-        async.each(this.files, function(file, cb) {
-            var appobj, apppath
-            apppath = path.join(process.cwd(), path.normalize(file.src[0]))
-            try {
-                appobj = require(apppath)
-                couchapp.createApp(appobj, task.data.db, function(app) {
-                    app.push(cb);
-                });
-            } catch(ex) {
-                grunt.log.error(ex);
-                grunt.log.warn('Could not load couchapp from ' + apppath + '.');
-                cb();
-            }
-        }, done);
+        var appobj, done;
+        done = this.async();
+
+        appobj = require(path.join(process.cwd(), path.normalize(this.data.app)));
+
+        return couchapp.createApp(appobj, this.data.db, function(app) {
+            return app.push(done);
+        });
     });
 
     grunt.registerMultiTask("rmcouchdb", "Delete a Couch Database", function() {
@@ -103,17 +93,18 @@ module.exports = function(grunt) {
         try {
             if (db.name) {
                 nano = require('nano')(db.url);
-                nano.db.create(db.name, function(err) {
-                    if (_this.data.options && _this.data.options.okay_if_exists) {
-                        if (err){
+                nano.db.create(db.name, function(err, res) {
+                    if (err) {
+                        if (_this.data.options && _this.data.options.okay_if_exists) {
                             grunt.log.writeln("Database " + db.name + " exists, skipping");
+                            return done(null, null);
+                        } else {
+                            grunt.warn("Database " + db.name + " exists, aborting.");
+                            return done(err, null);
                         }
-                        return done(null, null);
                     } else {
-                        if (err){
-                            grunt.warn(err);
-                        }
-                        return done(err, null);
+                        grunt.log.writeln("Database " + db.name + " created.");
+                        return done(null, null);
                     }
                 });   
             } else {
