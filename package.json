@@ -1,24 +1,29 @@
 {
   "name": "grunt-couchapp",
   "description": "A grunt plugin for building and uploading couchapps",
-  "version": "0.1.0",
-  "homepage": "https://github.com/elf/grunt-couchapp",
+  "version": "0.2.0",
+  "homepage": "https://github.com/garbados/grunt-couchapp",
   "author": {
     "name": "Ken Elf Mathieu Sternberg",
     "email": "elf.sternberg@gmail.com",
     "url": "http://elfsternberg.com"
   },
+  "contributors": [{
+    "name": "Max Thayer",
+    "email": "garbados@gmail.com",
+    "url": "http://maxthayer.org"
+  }],
   "repository": {
     "type": "git",
-    "url": "git://github.com/elf/grunt-couchapp.git"
+    "url": "git://github.com/garbados/grunt-couchapp.git"
   },
   "bugs": {
-    "url": "https://github.com/elf/grunt-couchapp/issues"
+    "url": "https://github.com/garbados/grunt-couchapp/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/elf/grunt-couchapp/blob/master/LICENSE-MIT"
+      "url": "https://github.com/garbados/grunt-couchapp/blob/master/LICENSE-MIT"
     }
   ],
   "main": "grunt.js",
@@ -38,6 +43,8 @@
     "grunt": "~0.3.12"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "couchdb",
+    "couchapp"
   ]
 }
