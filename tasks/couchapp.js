@@ -23,6 +23,17 @@ var genDB = function(db) {
   };
 };
 
+var genDB = function(db) {
+  var parts, dbname, auth;
+  parts = urls.parse(db);
+  dbname = parts.pathname.replace(/^\//, '');
+  auth = parts.auth ? (parts.auth + '@') : '';
+  return {
+    name: dbname,
+    url: parts.protocol + '//' + auth + parts.host
+  };
+};
+
 module.exports = function(grunt) {
 
   // ==========================================================================
