@@ -51,7 +51,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask("rmcouchdb", "Delete a Couch Database", function() {
-        var done, parts, nano, dbname, _this;
+        var done, parts, nano, dbname, _this, db;
         _this = this;
         done = this.async();
         db = genDB(this.data.db);
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                         }
                     }
                     return done(err, null);
-                });   
+                });
             } else {
                 grunt.log.writeln("No database specified... skipping.");
                 return done(null, null);
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask("mkcouchdb", "Make a Couch Database", function() {
-        var done, parts, nano, dbname, _this;
+        var done, parts, nano, dbname, _this, db;
         _this = this;
 
         done = this.async();
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                         grunt.log.writeln("Database " + db.name + " created.");
                         return done(null, null);
                     }
-                });   
+                });
             } else {
                 var err_msg = "No database specified to create!";
                 grunt.warn(err_msg);
