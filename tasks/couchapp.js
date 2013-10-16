@@ -22,16 +22,6 @@ var genDB = function(db) {
   };
 };
 
-var genDB = function(db) {
-  var parts, dbname, auth;
-  parts = urls.parse(db);
-  dbname = parts.pathname.replace(/^\//, '');
-  auth = parts.auth ? (parts.auth + '@') : '';
-  return {
-    name: dbname,
-    url: parts.protocol + '//' + auth + parts.host
-  };
-};
 
 module.exports = function(grunt) {
 
@@ -72,7 +62,7 @@ module.exports = function(grunt) {
                         }
                     }
                     return done(err, null);
-                });   
+                });
             } else {
                 grunt.log.writeln("No database specified... skipping.");
                 return done(null, null);
@@ -106,7 +96,7 @@ module.exports = function(grunt) {
                         grunt.log.writeln("Database " + db.name + " created.");
                         return done(null, null);
                     }
-                });   
+                });
             } else {
                 var err_msg = "No database specified to create!";
                 grunt.warn(err_msg);
