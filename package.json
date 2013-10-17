@@ -1,7 +1,7 @@
 {
   "name": "grunt-couchapp",
   "description": "A grunt plugin for building and uploading couchapps",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/garbados/grunt-couchapp",
   "author": {
     "name": "Ken Elf Mathieu Sternberg",
