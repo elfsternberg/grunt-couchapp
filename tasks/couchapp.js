@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                         }
                     }
                     return done(err, null);
-                });   
+                });
             } else {
                 grunt.log.writeln("No database specified... skipping.");
                 return done(null, null);
@@ -81,6 +81,7 @@ module.exports = function(grunt) {
             grunt.warn(e);
             done(e, null);
         }
+        return null;
     });
 
     grunt.registerMultiTask("mkcouchdb", "Make a Couch Database", function() {
@@ -106,7 +107,7 @@ module.exports = function(grunt) {
                         grunt.log.writeln("Database " + db.name + " created.");
                         return done(null, null);
                     }
-                });   
+                });
             } else {
                 var err_msg = "No database specified to create!";
                 grunt.warn(err_msg);
@@ -116,6 +117,7 @@ module.exports = function(grunt) {
             grunt.warn(e);
             done(e, null);
         }
+        return null;
     });
 
 };
