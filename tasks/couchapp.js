@@ -41,7 +41,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask("rmcouchdb", "Delete a Couch Database", function() {
-        var done, parts, nano, dbname, _this;
+        var done, parts, nano, dbname, _this, db;
         _this = this;
         done = this.async();
         db = genDB(this.data.db);
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask("mkcouchdb", "Make a Couch Database", function() {
-        var done, parts, nano, dbname, _this;
+        var done, parts, nano, dbname, _this, db;
         _this = this;
 
         done = this.async();
