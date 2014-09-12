@@ -32,8 +32,11 @@ module.exports = function(grunt) {
     grunt.registerMultiTask("couchapp", "Install Couchapp", function() {
         var appobj, done;
         done = this.async();
-
-        appobj = require(path.join(process.cwd(), path.normalize(this.data.app)));
+        if (require("fs").lstatSync(this.data.app).isDirectory()) { // if new-style (directory-based) couchapp app
+            appobj = couchapp.loadFiles(this.data.app);
+        } else { // otherwise, fall back to old style.
+            appobj = require(path.join(process.cwd(), path.normalize(this.data.app)))
+        }
 
         return couchapp.createApp(appobj, this.data.db, function(app) {
             return app.push(done);
