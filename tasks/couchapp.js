@@ -55,13 +55,14 @@ module.exports = function(grunt) {
                                 grunt.log.writeln("Database " + db.name + " not present... skipping.");
                                 return done(null, null) ;
                             } else {
-                                grunt.warn("Database " + db.name + " does not exist.");
+                                throw ("Database " + db.name + " does not exist.");
                             }
                         } else {
-                            grunt.warn(err);
+                            throw err;
                         }
                     }
-                    return done(err, null);
+                    // remove db was a success
+                    return done();
                 });
             } else {
                 grunt.log.writeln("No database specified... skipping.");
@@ -69,7 +70,7 @@ module.exports = function(grunt) {
             }
         } catch (e) {
             grunt.warn(e);
-            done(e, null);
+            return done(e, null);
         }
         return null;
     });
@@ -86,26 +87,35 @@ module.exports = function(grunt) {
                 nano = require('nano')(db.url);
                 nano.db.create(db.name, function(err, res) {
                     if (err) {
-                        if (_this.data.options && _this.data.options.okay_if_exists) {
+                        if (err.error && err.error=="unauthorized") {
+                            grunt.warn(err.reason);
+                            throw err;
+                        } else if (err.code && err.description) { // probably connection error
+                            throw err;
+                        }
+                        else if (_this.data.options && _this.data.options.okay_if_exists) {
                             grunt.log.writeln("Database " + db.name + " exists, skipping");
                             return done(null, null);
                         } else {
-                            grunt.warn("Database " + db.name + " exists, aborting.");
-                            return done(err, null);
+                            grunt.warn("Database " + db.name + " exists and okay_if_exists set to false. Aborting.");
+                            throw err;
                         }
-                    } else {
-                        grunt.log.writeln("Database " + db.name + " created.");
+                    } else if (res && res.ok==true) {
+                        grunt.log.ok("Database " + db.name + " created.");
                         return done(null, null);
+                    } else {
+                        console.log("Unexpected response received.");
+                        console.dir(res);
+                        throw "Unexpected response";
                     }
                 });
             } else {
                 var err_msg = "No database specified to create!";
-                grunt.warn(err_msg);
-                return done(new Error(err_msg), null);
+                throw err_msg;
             }
         } catch (e) {
             grunt.warn(e);
-            done(e, null);
+            return done(e, null);
         }
         return null;
     });
