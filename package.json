@@ -1,18 +1,23 @@
 {
   "name": "grunt-couchapp",
   "description": "A grunt plugin for building and uploading couchapps",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/garbados/grunt-couchapp",
   "author": {
-    "name": "Ken Elf Mathieu Sternberg",
-    "email": "elf.sternberg@gmail.com",
-    "url": "http://elfsternberg.com"
+      "name":"Sam Hiatt",
+      "email": "sam.hiatt@weather.com"
   },
-  "contributors": [{
-    "name": "Max Thayer",
-    "email": "garbados@gmail.com",
-    "url": "http://maxthayer.org"
-  }],
+  "contributors": [
+    {
+      "name": "Ken Elf Mathieu Sternberg",
+      "email": "elf.sternberg@gmail.com",
+      "url": "http://elfsternberg.com"
+    },{
+        "name": "Max Thayer",
+        "email": "garbados@gmail.com",
+        "url": "http://maxthayer.org"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/garbados/grunt-couchapp.git"
