@@ -96,12 +96,17 @@ module.exports = function(grunt) {
                         } else if (err.code && err.description) { // probably connection error
                             throw err;
                         }
-                        else if (_this.data.options && _this.data.options.okay_if_exists) {
-                            grunt.log.writeln("Database " + db.name + " exists, skipping");
-                            return done(null, null);
+                        else if (err.error && err.error=="file_exists") {
+                            if (_this.data.options && _this.data.options.okay_if_exists) {
+                                grunt.log.writeln("Database " + db.name + " exists, skipping");
+                                return done(null, null);
+                            } else {
+                                grunt.warn("Database " + db.name + " exists and okay_if_exists set to false. Aborting.");
+                                throw err;
+                            }
                         } else {
-                            grunt.warn("Database " + db.name + " exists and okay_if_exists set to false. Aborting.");
-                            throw err;
+                            console.warn("Unrecognized error.");
+                            throw err
                         }
                     } else if (res && res.ok==true) {
                         grunt.log.ok("Database " + db.name + " created.");
