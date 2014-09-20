@@ -34,6 +34,9 @@ module.exports = function(grunt) {
         done = this.async();
         if (require("fs").lstatSync(this.data.app).isDirectory()) { // if new-style (directory-based) couchapp app
             appobj = couchapp.loadFiles(this.data.app);
+            delete appobj._attachments;
+            delete appobj[''];
+            couchapp.loadAttachments(appobj, this.data.app+"/_attachments");
         } else { // otherwise, fall back to old style.
             appobj = require(path.join(process.cwd(), path.normalize(this.data.app)))
         }
