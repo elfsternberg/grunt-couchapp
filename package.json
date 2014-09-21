@@ -4,18 +4,19 @@
   "version": "0.2.2",
   "homepage": "https://github.com/garbados/grunt-couchapp",
   "author": {
-      "name":"Sam Hiatt",
-      "email": "sam.hiatt@weather.com"
-  },
-  "contributors": [
-    {
       "name": "Ken Elf Mathieu Sternberg",
       "email": "elf.sternberg@gmail.com",
       "url": "http://elfsternberg.com"
-    },{
+  },
+  "contributors": [
+    {
         "name": "Max Thayer",
         "email": "garbados@gmail.com",
         "url": "http://maxthayer.org"
+    },
+    {
+      "name":"Sam Hiatt",
+      "email": "sam.hiatt@weather.com"
     }
   ],
   "repository": {

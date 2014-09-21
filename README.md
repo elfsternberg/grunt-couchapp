@@ -1,7 +1,6 @@
 # grunt-couchapp
 
-A grunt plugin for building and installing couchapps, 
-forked from https://github.com/garbados/grunt-couchapp
+A grunt plugin for building and installing couchapps
 
 ## Getting Started 
 
