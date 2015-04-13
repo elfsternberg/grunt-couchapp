@@ -1,3 +1,5 @@
+"use strict";
+
 /*
  * grunt-couchapp https://github.com/elf/grunt-couchapp
  *
@@ -7,16 +9,16 @@
 
 var path, couchapp, nanolib, urls;
 
-path = require('path');
-couchapp = require('couchapp');
-urls = require('url');
+path = require("path");
+couchapp = require("couchapp");
+urls = require("url");
 
 module.exports = function(grunt) {
-
-  // ==========================================================================
-  // TASKS
-  // ==========================================================================
-
+    
+    // ==========================================================================
+    // TASKS
+    // ==========================================================================
+    
     grunt.registerMultiTask("couchapp", "Install Couchapp", function() {
         var appobj, done;
         done = this.async();
@@ -25,15 +27,15 @@ module.exports = function(grunt) {
             return app.push(done);
         });
     });
-
+    
     grunt.registerMultiTask("rmcouchdb", "Delete a Couch Database", function() {
         var done, parts, nano, dbname, _this;
         _this = this;
         done = this.async();
         parts = urls.parse(this.data.db);
-        dbname = parts.pathname.replace(/^\//, '');
+        dbname = parts.pathname.replace(/^\//, "");
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
+            nano = require("nano")(parts.protocol + "//" + parts.host);
             nano.db.destroy(dbname, function(err) {
                 if (err) {
                     if (err.status_code && err.status_code === 404) {
@@ -60,17 +62,17 @@ module.exports = function(grunt) {
         _this = this;
         done = this.async();
         parts = urls.parse(this.data.db);
-        dbname = parts.pathname.replace(/^\//, '');
+        dbname = parts.pathname.replace(/^\//, "");
         try {
-            nano = require('nano')(parts.protocol + '//' + parts.host);
+            nano = require("nano")(parts.protocol + "//" + parts.host);
             nano.db.create(dbname, function(err) {
                 if (_this.data.options && _this.data.options.okay_if_exists) {
-                    if (err){
+                    if (err) {
                         grunt.log.writeln("Database " + dbname + " exists, skipping");
                     }
                     return done(null, null);
                 } else {
-                    if (err){
+                    if (err) {
                         grunt.warn(err);
                     }
                     return done(err, null);

@@ -1,4 +1,5 @@
-var grunt = require('grunt');
+"use strict";
+var grunt = require("grunt");
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -21,7 +22,7 @@ var grunt = require('grunt');
 */
 
 exports.couchapp = {
-  setUp: function(done) {
-    done();
-  }
+    setUp: function(done) {
+        done();
+    }
 };

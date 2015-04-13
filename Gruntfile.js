@@ -1,21 +1,20 @@
-var DEMO_COUCH_DB = 'http://localhost:5984/grunt-couchapp-demo';
+"use strict";
+
+var DEMO_COUCH_DB = "http://localhost:5984/grunt-couchapp-demo";
 
 module.exports = function(grunt) {
     // Project configuration.
 
     grunt.initConfig({
-
         test: {
-            files: ['test/**/*.js']
-        },
-        lint: {
-            files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
+            files: ["test/**/*.js"]
         },
         watch: {
-            files: '<config:lint.files>',
-            tasks: 'default'
+            files: "<config:lint.files>",
+            tasks: "default"
         },
         jshint: {
+            files: ["grunt.js", "tasks/**/*.js", "test/**/*.js"],
             options: {
                 curly: true,
                 eqeqeq: true,
@@ -48,15 +47,16 @@ module.exports = function(grunt) {
         couchapp: {
             demo: {
                 db: DEMO_COUCH_DB,
-                app: './demo/app.js'
+                app: "./demo/app.js"
             }
         }
     });
     
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     // Load local tasks.
-    grunt.loadTasks('tasks');
+    grunt.loadTasks("tasks");
     
     // Default task.
-    grunt.registerTask('default', 'lint test');
-    grunt.registerTask('demo', 'rmcouchdb:demo mkcouchdb:demo couchapp:demo');
+    grunt.registerTask("default", ["jshint", "test"]);
+    grunt.registerTask("demo", "rmcouchdb:demo mkcouchdb:demo couchapp:demo");
 };
